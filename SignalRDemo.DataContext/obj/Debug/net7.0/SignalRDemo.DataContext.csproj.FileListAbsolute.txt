@@ -1,0 +1,12 @@
+D:\TestConsole\SignalRDemo.DataContext\bin\Debug\net7.0\SignalRDemo.DataContext.deps.json
+D:\TestConsole\SignalRDemo.DataContext\bin\Debug\net7.0\SignalRDemo.DataContext.dll
+D:\TestConsole\SignalRDemo.DataContext\bin\Debug\net7.0\SignalRDemo.DataContext.pdb
+D:\TestConsole\SignalRDemo.DataContext\obj\Debug\net7.0\SignalRDemo.DataContext.csproj.AssemblyReference.cache
+D:\TestConsole\SignalRDemo.DataContext\obj\Debug\net7.0\SignalRDemo.DataContext.GeneratedMSBuildEditorConfig.editorconfig
+D:\TestConsole\SignalRDemo.DataContext\obj\Debug\net7.0\SignalRDemo.DataContext.AssemblyInfoInputs.cache
+D:\TestConsole\SignalRDemo.DataContext\obj\Debug\net7.0\SignalRDemo.DataContext.AssemblyInfo.cs
+D:\TestConsole\SignalRDemo.DataContext\obj\Debug\net7.0\SignalRDemo.DataContext.csproj.CoreCompileInputs.cache
+D:\TestConsole\SignalRDemo.DataContext\obj\Debug\net7.0\SignalRDemo.DataContext.dll
+D:\TestConsole\SignalRDemo.DataContext\obj\Debug\net7.0\refint\SignalRDemo.DataContext.dll
+D:\TestConsole\SignalRDemo.DataContext\obj\Debug\net7.0\SignalRDemo.DataContext.pdb
+D:\TestConsole\SignalRDemo.DataContext\obj\Debug\net7.0\ref\SignalRDemo.DataContext.dll

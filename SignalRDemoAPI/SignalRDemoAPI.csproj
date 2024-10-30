@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="signalr.js" />
+    <None Remove="signalr.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="signalr.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="signalr.min.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.20" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client.Core" Version="7.0.20" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SignalRDemo.DataContext\SignalRDemo.DataContext.csproj" />
+    <ProjectReference Include="..\SignalRDemo.Models\SignalRDemo.Models.csproj" />
+    <ProjectReference Include="..\SignalRDemo.Services\SignalRDemo.Services.csproj" />
+  </ItemGroup>
+
+</Project>

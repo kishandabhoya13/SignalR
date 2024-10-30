@@ -1,0 +1,12 @@
+D:\TestConsole\SignalRDemo.Models\obj\Debug\net7.0\SignalRDemo.Models.csproj.AssemblyReference.cache
+D:\TestConsole\SignalRDemo.Models\obj\Debug\net7.0\SignalRDemo.Models.GeneratedMSBuildEditorConfig.editorconfig
+D:\TestConsole\SignalRDemo.Models\obj\Debug\net7.0\SignalRDemo.Models.AssemblyInfoInputs.cache
+D:\TestConsole\SignalRDemo.Models\obj\Debug\net7.0\SignalRDemo.Models.AssemblyInfo.cs
+D:\TestConsole\SignalRDemo.Models\obj\Debug\net7.0\SignalRDemo.Models.csproj.CoreCompileInputs.cache
+D:\TestConsole\SignalRDemo.Models\bin\Debug\net7.0\SignalRDemo.Models.deps.json
+D:\TestConsole\SignalRDemo.Models\bin\Debug\net7.0\SignalRDemo.Models.dll
+D:\TestConsole\SignalRDemo.Models\bin\Debug\net7.0\SignalRDemo.Models.pdb
+D:\TestConsole\SignalRDemo.Models\obj\Debug\net7.0\SignalRDemo.Models.dll
+D:\TestConsole\SignalRDemo.Models\obj\Debug\net7.0\refint\SignalRDemo.Models.dll
+D:\TestConsole\SignalRDemo.Models\obj\Debug\net7.0\SignalRDemo.Models.pdb
+D:\TestConsole\SignalRDemo.Models\obj\Debug\net7.0\ref\SignalRDemo.Models.dll

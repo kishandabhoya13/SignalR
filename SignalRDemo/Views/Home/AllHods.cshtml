@@ -1,0 +1,383 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="search-div">
+        <div class="form-group div1">
+            <div class="input_box">
+                <input id="inputsearch"
+                       class="form-control"
+                       type="text"
+                       placeholder="Search Student" />
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid table-responsive">
+        <table id="StudentTable" class="table table-borderless">
+        </table>
+    </div>
+</div>
+<div id="popup"></div>
+<script>
+    var TOTAL_ITEMS = 0;
+
+    function loadDataTable(startIndex) {
+        var searchQuery = $("#inputsearch").val();
+        var pageSize = $("#dt-length-0").val();
+        var secondApiRequest = {
+            searchQuery: searchQuery,
+            StartIndex: startIndex,
+            PageSize: pageSize,
+        }
+        sessionStorage.setItem("currentPageIndex", startIndex);
+        var table = new DataTable('#StudentTable', {
+            searching: false,
+            rowId: function (data) {
+                return data.studentId;
+            },
+            "infoCallback": function (settings, start, end, max, total, pre) {
+
+                var pageInfo = this.api().page.info(); // Get the current page info
+                var pageSize1 = $("#dt-length-0").val();;
+
+                currentPageIndex = parseInt(sessionStorage.getItem("currentPageIndex"), 10);
+
+                var startIndex = (currentPageIndex * pageSize1) + 1;
+
+                var endIndex = Math.min(parseInt(startIndex, 10) + parseInt(pageSize1, 10) - 1, parseInt(TOTAL_ITEMS, 10));
+                if (parseInt(endIndex, 10) === parseInt(TOTAL_ITEMS, 10)) {
+                    $(".page-link.next").addClass("disabled");
+                }
+                else {
+                    $(".page-link.next").removeClass("disabled");
+                }
+
+                if (startIndex == 1) {
+                    $(".page-link.previous").addClass("disabled");
+                }
+                else {
+                    $(".page-link.previous").removeClass("disabled");
+
+                }
+                return "Showing " + startIndex + " to " + endIndex + " of " + TOTAL_ITEMS + " entries";
+            },
+            drawCallback: function () {
+
+                $(".dt-paging-button").removeClass("disabled");
+            },
+            "initComplete": function (settings, json) {
+                $(".dt-paging-button").removeClass("disabled");
+                var pageSize1 = $("#dt-length-0").val();
+
+                if (TOTAL_ITEMS <= pageSize1) {
+                    $(".page-link.next").addClass("disabled");
+                }
+                else {
+                    $(".page-link.next").removeClass("disabled");
+                }
+            },
+            "lengthMenu": [[5, 10, 15], [5, 10, 15]],
+            "pageLength": pageSize,
+            "language": {
+                oPaginate: {
+                    sNext: '<i class="bi bi-caret-right-fill text-info"></i>',
+                    sPrevious: '<i class="bi bi-caret-left-fill text-info"></i>'
+
+                }
+            },
+            "stateSave": true,
+            "pagingType": "simple",
+
+            ajax: {
+                method: "POST",
+                url: "/Home/AllHodData",
+                data: secondApiRequest,
+                dataType: "JSON",
+                dataSrc: function (response) {
+                    if (response.redirect) {
+                        window.location.href = response.redirect;
+                    }
+                    TOTAL_ITEMS = response.totalItems;
+                    return response.data;
+                },
+                error: function () {
+                    console.log("Function Fail")
+                }
+            },
+            columns: [
+                {
+                    "title": "Id",
+                    "data": "id",
+                    "class": "text-center",
+                    "render": function (data1, type, row) {
+                        return data1;
+                    }
+                },
+                {
+                    "title": "FirstName",
+                    "data": "firstName",
+                    "class": "text-center",
+                    "render": function (data1, type, row) {
+                        return "<input id='firstname-input-" + row.studentId + "' class='table-inputs form-control-disables-" + row.studentId + "' style='display:none;' type='text' asp-for='" + data1 + "' value='" + data1 + "'/> <a class='input-values-" + row.studentId + "' href='/Home/CreateUpdateStudent?StudentId=" + row.studentId + "'>" + data1 + "</a>";
+                    }
+                },
+                {
+                    "title": "LastName",
+                    "data": "lastName",
+                    "class": "text-center",
+                    "render": function (data1, type, row) {
+                        return "<input id='lastname-input-" + row.studentId + "' class='table-inputs form-control-disables-" + row.studentId + "' style='display:none;' type='text' asp-for='" + data1 + "' value='" + data1 + "'/> <span class='input-values-" + row.studentId + "'>" + data1 + "</span>";
+                    }
+                },
+                {
+                    "title": "Email",
+                    "data": "email",
+                    "class": "text-center",
+                    "render": function (data1, type, row) {
+                        if (data1 == null) {
+                            data1 = "-";
+                        }
+                        return "<input id='email-input-" + row.studentId + "' class='table-inputs form-control-disables-" + row.studentId + "' style='display:none;' type='text' asp-for='" + data1 + "' value='" + data1 + "'/> <span class='input-values-" + row.studentId + "'>" + data1 + "</span>";
+                    }
+                },
+                {
+                    "title": "BirthDate",
+                    "data": "birthDate",
+                    "class": "text-center",
+                    "render": function (data1, type, row) {
+                        var date = new Date(data1);
+                        var localDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000));
+                        var formattedDate = localDate.toISOString().split('T')[0];
+                        return "<input id='birthdate-input-" + row.studentId + "' class='table-inputs form-control-disables-" + row.studentId + "' style='display:none;' type='date' asp-for='" + data1 + "' value='" + formattedDate + "'/> <span class='input-values-" + row.studentId + "'>" + formattedDate + "</span>";
+
+                    }
+                },
+                {
+                    "title": "UserName",
+                    "data": "userName",
+                    "class": "text-center",
+                    "render": function (data1, type, row) {
+                        return "<input id='username-input-" + row.studentId + "' class='table-inputs form-control-disables-" + row.studentId + "' style='display:none;' type='text' asp-for='" + data1 + "' value='" + data1 + "'/> <span class='input-values-" + row.studentId + "'>" + data1 + "</span>";
+
+                    }
+                },
+                {
+                    "title": "Action",
+                    "data": "-",
+                    "class": "text-center",
+                    "render": function (data1, type, row) {
+                        return "<button class='btn btn-success' id='chat-btn' onclick='openChatPage(\"" + row.userName + "\")'>Chat</button>";
+                    }
+                },
+            ]
+        });
+        return table;
+
+    }
+
+    $(document).ready(function () {
+        var currentCounts = {};
+        sessionStorage.setItem("currentPageIndex", 0);
+        var table = loadDataTable(0);
+        console.log(table);
+        $("#dt-length-0").val(5);
+        $(".dt-paging-button").removeClass("disabled");
+        $(document).on('change', '.form-select', function (event) {
+            var pageSize = $("#dt-length-0").val();
+            var fromDate = $("#fromDate").val();
+            var toDate = $("#toDate").val();
+
+            var secondApiRequest = {
+                StartIndex: 0,
+                PageSize: pageSize,
+                FromDate: fromDate,
+                ToDate: toDate
+            };
+            event.preventDefault();
+            $.ajax({
+                method: "POST",
+                url: "/Home/AllHodData",
+                data: secondApiRequest,
+                dataSrc: "data",
+                success: function (response) {
+                    if (response.redirect) {
+                        window.location.href = response.redirect;
+                    }
+                    if (response == false) {
+                        window.location.href = '/Login/Logout';
+                    }
+                    sessionStorage.setItem("currentPageIndex", 0);
+                    TOTAL_ITEMS = response.totalItems;
+                    var newRows = response.data;
+                    table.clear();
+
+                    table.rows.add(newRows).draw(false);
+                    incrementForChanging();
+
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
+
+        $(document).on('keyup', '#inputsearch', function (event) {
+            var pageSize = $("#dt-length-0").val();
+            var fromDate = $("#fromDate").val();
+            var toDate = $("#toDate").val();
+
+            var secondApiRequest = {
+                searchQuery: this.value,
+                StartIndex: 0,
+                PageSize: pageSize,
+                FromDate: fromDate,
+                ToDate: toDate
+            };
+            $.ajax({
+                method: "POST",
+                url: "/Home/AllHodData",
+                data: secondApiRequest,
+                dataSrc: "data",
+                success: function (response) {
+                    if (response == false) {
+                        window.location.href = '/Login/Logout';
+                    }
+                    sessionStorage.setItem("currentPageIndex", 0);
+                    var newRows = response.data;
+                    TOTAL_ITEMS = response.totalItems;
+                    table.clear();
+                    table.rows.add(newRows).draw(false);
+
+                    incrementForChanging();
+
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
+
+        let currentPageIndex = 0;
+        let totalPages = table.page.info().pages;
+        $(document).on('click', '.page-link.next', function (event) {
+            var pageSize = $("#dt-length-0").val();
+            var fromDate = $("#fromDate").val();
+            var toDate = $("#toDate").val();
+
+            if (sessionStorage.getItem("currentPageIndex") != null) {
+                currentPageIndex = parseInt(sessionStorage.getItem("currentPageIndex"), 10) + 1;
+            }
+            let startIndex = currentPageIndex * pageSize;
+            event.preventDefault();
+            var secondApiRequest = {
+                StartIndex: startIndex,
+                PageSize: pageSize,
+                FromDate: fromDate,
+                ToDate: toDate
+            };
+            $.ajax({
+                method: "POST",
+                url: "/Home/AllHodData",
+                data: secondApiRequest,
+                dataSrc: "data",
+                success: function (response) {
+                    if (response.redirect) {
+                        window.location.href = response.redirect;
+                    }
+                    if (response == false) {
+                        window.location.href = '/Login/Logout';
+                    }
+                    sessionStorage.setItem("currentPageIndex", currentPageIndex);
+                    var newRows = response.data;
+                    TOTAL_ITEMS = response.totalItems;
+                    table.clear();
+                    table.rows.add(newRows).draw(false);
+
+                    incrementForChanging();
+
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
+
+        $(document).on('click', '.page-link.previous', function (event) {
+            event.preventDefault();
+            var pageSize = $("#dt-length-0").val();
+            var fromDate = $("#fromDate").val();
+            var toDate = $("#toDate").val();
+            if (sessionStorage.getItem("currentPageIndex") != null) {
+                currentPageIndex = parseInt(sessionStorage.getItem("currentPageIndex"), 10) - 1;
+                if (parseInt(currentPageIndex, 10) < 0) {
+
+                    currentPageIndex = 0;
+                }
+            }
+            let startIndex1 = currentPageIndex * pageSize;
+            var secondApiRequest = {
+                StartIndex: startIndex1,
+                PageSize: pageSize,
+                FromDate: fromDate,
+                ToDate: toDate
+            };
+            $.ajax({
+                method: "POST",
+                url: "/Home/AllHodData",
+                data: secondApiRequest,
+                dataSrc: "data",
+                success: function (response) {
+                    if (response.redirect) {
+                        window.location.href = response.redirect;
+                    }
+                    if (response == false) {
+                        window.location.href = '/Login/Logout';
+                    }
+                    sessionStorage.setItem("currentPageIndex", currentPageIndex);
+                    var newRows = response.data;
+                    TOTAL_ITEMS = response.totalItems;
+                    table.clear();
+                    table.rows.add(newRows).draw(false);
+
+                    incrementForChanging();
+
+
+                },
+                error: function (xhr, status, error) {
+                    if (xhr.status === 401) {
+                        // Perform logout action (e.g., redirect to logout page)
+                        window.location.href = '/Login/Logout'; // Adjust URL as per your project's logout route
+                    } else {
+                        console.error('API request error:', error);
+                    }
+                }
+            });
+        });
+    });
+
+
+    function openChatPage(hodUserName) {
+
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '/Home/ChatWithHod';
+
+        const userIdInput = document.createElement('input');
+        userIdInput.type = 'hidden';
+        userIdInput.name = 'HodUserName';
+        userIdInput.value = hodUserName;
+
+        form.appendChild(userIdInput);
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+
+        //function startChat(studentId) {
+
+        //}
+
+
+</script>

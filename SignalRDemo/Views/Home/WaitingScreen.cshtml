@@ -1,0 +1,49 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+@model SignalRDemo.Models.JwtClaimsViewModel
+
+<section class="sign-in">
+    <div class="container">
+        <div class="signin-content">
+            <div class="signin-image">
+                <figure><img src="~/Images/signin-image.jpg" alt="sing up image"></figure>
+            </div>
+
+            <div class="signin-form d-flex justify-content-center align-items-center">
+                <div class="portfolio-loader">
+                    <div class="sun"></div>
+                    <div class="orbit orbit1"><div class="planetX planet1"></div></div>
+                    <div class="orbit orbit2"><div class="planetX planet2"></div></div>
+                    <div class="orbit orbit3"><div class="planetX planet3"></div></div>
+                </div>
+                <div>
+                    <span>Waiting for User Response</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/signalr.js"></script>
+<script src="~/signalr.min.js"></script>
+<script>
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl('https://localhost:7281/notificationHub', {
+            withCredentials: true
+        })
+        .build();
+
+    connection.start()
+        .then(() => {
+            connection.invoke("Connect", "@Model.StudentId");
+        })
+        .catch(err => console.error(err.toString()));
+
+    connection.on('ReceiveNotification', (message) => {
+        //alert(message);
+        window.location.href = "/home/SuccessLogin"
+    });
+</script>

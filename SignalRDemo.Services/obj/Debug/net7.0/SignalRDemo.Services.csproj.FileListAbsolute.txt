@@ -1,0 +1,17 @@
+D:\TestConsole\SignalRDemo.Services\obj\Debug\net7.0\SignalRDemo.Services.csproj.AssemblyReference.cache
+D:\TestConsole\SignalRDemo.Services\obj\Debug\net7.0\SignalRDemo.Services.GeneratedMSBuildEditorConfig.editorconfig
+D:\TestConsole\SignalRDemo.Services\obj\Debug\net7.0\SignalRDemo.Services.AssemblyInfoInputs.cache
+D:\TestConsole\SignalRDemo.Services\obj\Debug\net7.0\SignalRDemo.Services.AssemblyInfo.cs
+D:\TestConsole\SignalRDemo.Services\obj\Debug\net7.0\SignalRDemo.Services.csproj.CoreCompileInputs.cache
+D:\TestConsole\SignalRDemo.Services\bin\Debug\net7.0\SignalRDemo.Services.deps.json
+D:\TestConsole\SignalRDemo.Services\bin\Debug\net7.0\SignalRDemo.Services.dll
+D:\TestConsole\SignalRDemo.Services\bin\Debug\net7.0\SignalRDemo.Services.pdb
+D:\TestConsole\SignalRDemo.Services\bin\Debug\net7.0\SignalRDemo.DataContext.dll
+D:\TestConsole\SignalRDemo.Services\bin\Debug\net7.0\SignalRDemo.Models.dll
+D:\TestConsole\SignalRDemo.Services\bin\Debug\net7.0\SignalRDemo.DataContext.pdb
+D:\TestConsole\SignalRDemo.Services\bin\Debug\net7.0\SignalRDemo.Models.pdb
+D:\TestConsole\SignalRDemo.Services\obj\Debug\net7.0\SignalRDemo.Services.csproj.CopyComplete
+D:\TestConsole\SignalRDemo.Services\obj\Debug\net7.0\SignalRDemo.Services.dll
+D:\TestConsole\SignalRDemo.Services\obj\Debug\net7.0\refint\SignalRDemo.Services.dll
+D:\TestConsole\SignalRDemo.Services\obj\Debug\net7.0\SignalRDemo.Services.pdb
+D:\TestConsole\SignalRDemo.Services\obj\Debug\net7.0\ref\SignalRDemo.Services.dll
