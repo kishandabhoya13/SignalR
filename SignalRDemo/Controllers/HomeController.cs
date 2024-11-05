@@ -64,7 +64,6 @@ namespace SignalRDemo.Controllers
             }
             catch (Exception ex)
             {
-                var message = ex.Message;
                 throw;
             }
         }
@@ -87,7 +86,7 @@ namespace SignalRDemo.Controllers
                 DataObject = JsonConvert.SerializeObject(emailViewModel),
 
             };
-            RoleBaseResponse<bool> roleBaseResponse = CallApiWithoutToken<bool>(secondApiRequest);
+            _ = CallApiWithoutToken<bool>(secondApiRequest);
             return View(jwtClaimsViewModel);
         }
 

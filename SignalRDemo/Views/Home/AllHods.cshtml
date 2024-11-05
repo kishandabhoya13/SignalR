@@ -120,7 +120,7 @@
                     "data": "firstName",
                     "class": "text-center",
                     "render": function (data1, type, row) {
-                        return "<input id='firstname-input-" + row.studentId + "' class='table-inputs form-control-disables-" + row.studentId + "' style='display:none;' type='text' asp-for='" + data1 + "' value='" + data1 + "'/> <a class='input-values-" + row.studentId + "' href='/Home/CreateUpdateStudent?StudentId=" + row.studentId + "'>" + data1 + "</a>";
+                        return data1;
                     }
                 },
                 {
@@ -128,7 +128,7 @@
                     "data": "lastName",
                     "class": "text-center",
                     "render": function (data1, type, row) {
-                        return "<input id='lastname-input-" + row.studentId + "' class='table-inputs form-control-disables-" + row.studentId + "' style='display:none;' type='text' asp-for='" + data1 + "' value='" + data1 + "'/> <span class='input-values-" + row.studentId + "'>" + data1 + "</span>";
+                        return data1;
                     }
                 },
                 {
@@ -139,7 +139,7 @@
                         if (data1 == null) {
                             data1 = "-";
                         }
-                        return "<input id='email-input-" + row.studentId + "' class='table-inputs form-control-disables-" + row.studentId + "' style='display:none;' type='text' asp-for='" + data1 + "' value='" + data1 + "'/> <span class='input-values-" + row.studentId + "'>" + data1 + "</span>";
+                        return data1;
                     }
                 },
                 {
@@ -150,8 +150,7 @@
                         var date = new Date(data1);
                         var localDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000));
                         var formattedDate = localDate.toISOString().split('T')[0];
-                        return "<input id='birthdate-input-" + row.studentId + "' class='table-inputs form-control-disables-" + row.studentId + "' style='display:none;' type='date' asp-for='" + data1 + "' value='" + formattedDate + "'/> <span class='input-values-" + row.studentId + "'>" + formattedDate + "</span>";
-
+                        return formattedDate;
                     }
                 },
                 {
@@ -159,8 +158,7 @@
                     "data": "userName",
                     "class": "text-center",
                     "render": function (data1, type, row) {
-                        return "<input id='username-input-" + row.studentId + "' class='table-inputs form-control-disables-" + row.studentId + "' style='display:none;' type='text' asp-for='" + data1 + "' value='" + data1 + "'/> <span class='input-values-" + row.studentId + "'>" + data1 + "</span>";
-
+                        return data1;
                     }
                 },
                 {
@@ -206,7 +204,7 @@
                         window.location.href = response.redirect;
                     }
                     if (response == false) {
-                        window.location.href = '/Login/Logout';
+                        window.location.href = '/Home/Login';
                     }
                     sessionStorage.setItem("currentPageIndex", 0);
                     TOTAL_ITEMS = response.totalItems;
@@ -242,7 +240,7 @@
                 dataSrc: "data",
                 success: function (response) {
                     if (response == false) {
-                        window.location.href = '/Login/Logout';
+                        window.location.href ='/Home/Login';
                     }
                     sessionStorage.setItem("currentPageIndex", 0);
                     var newRows = response.data;
@@ -287,7 +285,7 @@
                         window.location.href = response.redirect;
                     }
                     if (response == false) {
-                        window.location.href = '/Login/Logout';
+                        window.location.href = '/Home/Login';
                     }
                     sessionStorage.setItem("currentPageIndex", currentPageIndex);
                     var newRows = response.data;
@@ -333,7 +331,7 @@
                         window.location.href = response.redirect;
                     }
                     if (response == false) {
-                        window.location.href = '/Login/Logout';
+                        window.location.href = '/Home/Login';
                     }
                     sessionStorage.setItem("currentPageIndex", currentPageIndex);
                     var newRows = response.data;
@@ -348,7 +346,7 @@
                 error: function (xhr, status, error) {
                     if (xhr.status === 401) {
                         // Perform logout action (e.g., redirect to logout page)
-                        window.location.href = '/Login/Logout'; // Adjust URL as per your project's logout route
+                        window.location.href = '/Home/Login';; // Adjust URL as per your project's logout route
                     } else {
                         console.error('API request error:', error);
                     }

@@ -34,6 +34,9 @@
             socket.send(JSON.stringify(initMessage));
         };
 
+
+        //this method Execute when Message come from different users 
+
         socket.onmessage = (event) => {
             const messagesList = document.getElementById('messagesList');
             const msgData = JSON.parse(event.data);
@@ -64,6 +67,8 @@
             console.log('WebSocket connection closed.');
         };
     }
+
+    //Send Message function call on Send button
 
     function sendMessage() {
         const messageInput = document.getElementById('messageInput');
