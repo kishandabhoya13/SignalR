@@ -2,6 +2,7 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @model ChatMessage
 <h2>WebSocket Chat Application</h2>
@@ -13,8 +14,14 @@
         <button id="sendButton" onclick="sendMessage()">Send</button>
     </div>
 </div>
-
 <script>
+    connection.start()
+        .then(() => {
+            connection.invoke("Connect", "@Model.Username");
+        })
+        .catch(err => console.error(err.toString()));
+
+
     let socket;
     const username = "@Model.Username";
     const receiverUsername = "@Model.ReceiverUsername";
@@ -35,16 +42,14 @@
         };
 
 
-        //this method Execute when Message come from different users 
+        //this method Execute when Message come from different users
 
         socket.onmessage = (event) => {
+
             const messagesList = document.getElementById('messagesList');
             const msgData = JSON.parse(event.data);
-            console.log("receiver Username :::", receiverUsername);
-            console.log("Username :::", msgData);
 
             if (receiverUsername == msgData.Username && username == msgData.ReceiverUsername) {
-                console.log("MEssage data : ", msgData);
                 const li = document.createElement('li');
                 li.className = 'message received';
                 li.textContent = `${receiverUsername}: ${msgData.Message}`;
@@ -60,6 +65,10 @@
 
                 messagesList.appendChild(li);
                 messagesList.scrollTop = messagesList.scrollHeight;
+            } else {
+
+                var NotificationMessage = `${msgData.Username} Send Message : ${msgData.Message}`;
+                toastr.info(NotificationMessage);
             }
         };
 
@@ -95,11 +104,13 @@
         document.getElementById('messagesList').appendChild(li);
         messageInput.value = '';
         document.getElementById('messagesList').scrollTop = document.getElementById('messagesList').scrollHeight;
+
+        //var NotificationMessage = `${message.Username} Send Message : ${message.message}`;
+        //connection.invoke("SendNotification", "@Model.ReceiverUsername", NotificationMessage);
     }
 
     function handleKeyPress(event) {
         if (event.key === 'Enter') {
-            console.log("presss");
             event.preventDefault();
             sendMessage();
         }

@@ -4,7 +4,7 @@ using System.Security.Claims;
 
 namespace SignalRDemoAPI.Hubs
 {
-    public class NotificationHub :Hub
+    public class NotificationHub : Hub
     {
         private static readonly ConcurrentDictionary<string, string> _connectedClients = new();
         public async Task Connect(string aspNetUserId)
@@ -28,8 +28,21 @@ namespace SignalRDemoAPI.Hubs
 
         public static string GetConnectionId(string userId)
         {
-            string connectionId = _connectedClients[userId];
+            string connectionId = "";
+            if (_connectedClients.ContainsKey(userId))
+            {
+                connectionId = _connectedClients[userId];
+            }
             return connectionId;
+        }
+
+        public async Task SendNotification(string username, string message)
+        {
+            string connectionId = GetConnectionId(username);
+            if (connectionId != "")
+            {
+                await Clients.Client(connectionId).SendAsync("Notifications", message);
+            }
         }
     }
 }

@@ -12,3 +12,7 @@
 //    .then(() => console.log('Connected to SignalR'))
 //    .catch(err => console.error(err.toString()));
 
+connection.on("Notifications", function (message) {
+    console.log("toastyer");
+    toastr.info(message);
+});

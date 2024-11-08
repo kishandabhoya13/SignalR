@@ -3,7 +3,6 @@ using Newtonsoft.Json;
 using SignalRDemo.Models;
 using StudentManagment.Models;
 using StudentManagment.Models.DataModels;
-using System.Diagnostics;
 
 namespace SignalRDemo.Controllers
 {
@@ -105,7 +104,12 @@ namespace SignalRDemo.Controllers
             {
                 return RedirectToAction("Login");
             }
-            return View();
+
+            ProfessorHod professorHod = new ProfessorHod()
+            {
+                UserName = HttpContext.Session.GetString("HodUserName") ?? ""
+            };
+            return View(professorHod);
         }
 
         public IActionResult ChatPage(string StudentUserName)
@@ -156,7 +160,16 @@ namespace SignalRDemo.Controllers
 
         public IActionResult AllHods()
         {
-            return View();
+            if (HttpContext.Session.GetString("UserName") == null)
+            {
+                return RedirectToAction("Login");
+            }
+
+            Student student = new()
+            {
+                UserName = HttpContext.Session.GetString("UserName") ?? ""
+            };
+            return View(student);
         }
 
         [HttpPost]
